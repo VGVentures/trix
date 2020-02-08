@@ -1,0 +1,19 @@
+name: trix
+description: A package for simplifying json parsing
+version: 0.0.1
+author:
+homepage:
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  pedantic: ^1.8.0+1
+  flutter_test:
+    sdk: flutter
+
+flutter:
