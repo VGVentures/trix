@@ -1,4 +1,6 @@
-# trix
+# Trix
+
+[![codecov](https://codecov.io/gh/wesbillman/trix/branch/master/graph/badge.svg)](https://codecov.io/gh/wesbillman/trix)
 
 A new Flutter package project.
 
@@ -9,6 +11,6 @@ This project is a starting point for a Dart
 a library module containing code that can be shared easily across
 multiple Flutter or Dart projects.
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
+For help getting started with Flutter, view our
+[online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
