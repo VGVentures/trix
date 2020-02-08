@@ -3,8 +3,6 @@ library trix;
 import 'package:trix/trix_exception.dart';
 
 class Trix {
-  Trix._();
-
   static T required<T>({Map map, String key}) {
     if (T == dynamic) {
       throw TrixException('Type must be specified, cannot be dynamic');
