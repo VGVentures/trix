@@ -18,7 +18,8 @@ void main() {
           throwsA(
             predicate((e) =>
                 e is TrixException &&
-                e.message == 'Type must be specified, cannot be dynamic'),
+                e.toString() ==
+                    'Type must be specified for id, cannot be dynamic'),
           ),
         );
       });
@@ -29,7 +30,7 @@ void main() {
           throwsA(
             predicate((e) =>
                 e is TrixException &&
-                e.message ==
+                e.toString() ==
                     'Field id is not expected type. Found int expected String.'),
           ),
         );
@@ -49,7 +50,7 @@ void main() {
           throwsA(
             predicate((e) =>
                 e is TrixException &&
-                e.message ==
+                e.toString() ==
                     'Field complex is not expected type. Found String expected int.'),
           ),
         );
@@ -61,7 +62,8 @@ void main() {
           throwsA(
             predicate((e) =>
                 e is TrixException &&
-                e.message == 'Type must be specified, cannot be dynamic'),
+                e.toString() ==
+                    'Type must be specified for complex, cannot be dynamic'),
           ),
         );
       });
@@ -80,7 +82,8 @@ void main() {
           throwsA(
             predicate((e) =>
                 e is TrixException &&
-                e.message == 'Type must be specified, cannot be dynamic'),
+                e.toString() ==
+                    'Type must be specified for id, cannot be dynamic'),
           ),
         );
       });
@@ -90,7 +93,8 @@ void main() {
           () => Trix.required<int>(map, 'bogus'),
           throwsA(
             predicate((e) =>
-                e is TrixException && e.message == 'Field bogus is required'),
+                e is TrixException &&
+                e.toString() == 'Field bogus is required'),
           ),
         );
       });
@@ -101,7 +105,7 @@ void main() {
           throwsA(
             predicate((e) =>
                 e is TrixException &&
-                e.message ==
+                e.toString() ==
                     'Field id is not expected type. Found int expected String.'),
           ),
         );
@@ -116,7 +120,8 @@ void main() {
           () => Trix.requiredFunc<int>(map, 'bogus', (json) => json['name']),
           throwsA(
             predicate((e) =>
-                e is TrixException && e.message == 'Field bogus is required'),
+                e is TrixException &&
+                e.toString() == 'Field bogus is required'),
           ),
         );
       });
@@ -127,7 +132,8 @@ void main() {
           throwsA(
             predicate((e) =>
                 e is TrixException &&
-                e.message == 'Function result is required'),
+                e.toString() ==
+                    'Failed to build int from required field complex'),
           ),
         );
       });
@@ -138,7 +144,8 @@ void main() {
           throwsA(
             predicate((e) =>
                 e is TrixException &&
-                e.message == 'Type must be specified, cannot be dynamic'),
+                e.toString() ==
+                    'Type must be specified for complex, cannot be dynamic'),
           ),
         );
       });
@@ -149,7 +156,7 @@ void main() {
           throwsA(
             predicate((e) =>
                 e is TrixException &&
-                e.message ==
+                e.toString() ==
                     'Field complex is not expected type. Found String expected int.'),
           ),
         );
