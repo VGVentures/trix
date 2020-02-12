@@ -30,7 +30,7 @@ class Trix {
 
     final value = func(map[key]);
     if (value == null) {
-      throw TrixException.funcRequired(map, key);
+      throw TrixException.funcRequired(map, key, '$T');
     }
 
     if (value is! T) {

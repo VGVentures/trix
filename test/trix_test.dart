@@ -132,7 +132,8 @@ void main() {
           throwsA(
             predicate((e) =>
                 e is TrixException &&
-                e.toString() == 'A function result is required for complex'),
+                e.toString() ==
+                    'Failed to build int from required field complex'),
           ),
         );
       });

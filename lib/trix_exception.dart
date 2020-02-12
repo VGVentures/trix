@@ -14,8 +14,9 @@ class TrixException implements Exception {
     return TrixException('Field $key is required', map, key);
   }
 
-  factory TrixException.funcRequired(Map map, String key) {
-    return TrixException('A function result is required for $key', map, key);
+  factory TrixException.funcRequired(Map map, String key, String expected) {
+    return TrixException(
+        'Failed to build $expected from required field $key', map, key);
   }
 
   factory TrixException.wrongType(
