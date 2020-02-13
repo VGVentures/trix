@@ -3,71 +3,58 @@ library trix;
 import 'package:trix/trix_exception.dart';
 
 class Trix {
-  static T required<T>(Map map, String key) {
+  static T _getField<T>(Map map, String key, {bool required = false}) {
     if (T == dynamic) {
       throw TrixException.dynamic(map, key);
     }
 
-    if (map[key] == null) {
-      throw TrixException('Field $key is required', map, key);
-    }
-
-    final value = map[key];
-    if (value is! T) {
-      throw TrixException.wrongType(map, key, '$T', '${value.runtimeType}');
-    }
-    return value as T;
-  }
-
-  static T requiredFunc<T>(Map map, String key, Function func) {
-    if (T == dynamic) {
-      throw TrixException.dynamic(map, key);
-    }
-
-    if (map[key] == null) {
+    final field = map[key];
+    if (field == null && required) {
       throw TrixException.required(map, key);
     }
 
-    final value = func(map[key]);
+    if (field != null && field is! T) {
+      throw TrixException.wrongType(map, key, '$T', '${field.runtimeType}');
+    }
+
+    return map[key] as T;
+  }
+
+  static T required<T>(Map map, String key) {
+    return _getField(map, key, required: true);
+  }
+
+  static T requiredMap<T>(Map map, String key, T Function(Map) func) {
+    final value = func(_getField(map, key, required: true));
     if (value == null) {
       throw TrixException.funcRequired(map, key, '$T');
     }
 
-    if (value is! T) {
-      throw TrixException.funcWrongType(map, key, '$T', '${value.runtimeType}');
+    return value;
+  }
+
+  static T requiredList<T>(Map map, String key, T Function(List<Map>) func) {
+    final value = func(_getField(map, key, required: true));
+    if (value == null) {
+      throw TrixException.funcRequired(map, key, '$T');
     }
-    return value as T;
+
+    return value;
   }
 
   static T optional<T>(Map map, String key) {
-    if (T == dynamic) {
-      throw TrixException.dynamic(map, key);
-    }
-
-    final value = map[key];
+    T value = _getField(map, key);
     if (value == null) {
       return null;
     }
-
-    if (value is! T) {
-      throw TrixException.wrongType(map, key, '$T', '${value.runtimeType}');
-    }
-    return value as T;
+    return value;
   }
 
-  static T optionalFunc<T>(Map map, String key, Function func) {
-    if (T == dynamic) {
-      throw TrixException.dynamic(map, key);
-    }
+  static T optionalMap<T>(Map map, String key, T Function(Map) func) {
+    return func(_getField(map, key));
+  }
 
-    if (map[key] == null) {
-      return null;
-    }
-
-    final value = func(map[key]);
-    if (value != null && value is! T) {
-      throw TrixException.funcWrongType(map, key, '$T', '${value.runtimeType}');
-    }
-    return value as T;
+  static T optionalList<T>(Map map, String key, T Function(List<Map>) func) {
+    return func(_getField(map, key));
   }
 }

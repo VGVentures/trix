@@ -11,41 +11,37 @@ class A {
 
   A({this.b, this.c, this.listB, this.listC, this.mapB, this.mapC});
 
-  factory A.fromJson(Map<String, dynamic> json) {
+  factory A.fromJson(Map json) {
     return A(
-      b: Trix.requiredFunc(
+      b: Trix.requiredMap(
         json,
         'b',
-        (Map<String, dynamic> json) => B.fromJson(json),
+        (json) => B.fromJson(json),
       ),
-      c: Trix.optionalFunc(
+      c: Trix.requiredMap(
         json,
         'c',
-        (Map<String, dynamic> json) => C.fromJson(json),
+        (json) => C.fromJson(json),
       ),
-      listB: Trix.optionalFunc(
+      listB: Trix.optionalList(
         json,
         'listB',
-        (list) =>
-            list.map<B>((Map<String, dynamic> b) => B.fromJson(b)).toList(),
+        (list) => list.map((b) => B.fromJson(b)).toList(),
       ),
-      listC: Trix.optionalFunc(
+      listC: Trix.optionalList(
         json,
         'listC',
-        (list) =>
-            list.map<C>((Map<String, dynamic> c) => C.fromJson(c)).toList(),
+        (list) => list.map((c) => C.fromJson(c)).toList(),
       ),
-      mapB: Trix.optionalFunc(
+      mapB: Trix.optionalMap(
         json,
         'mapB',
-        (map) => map.map<String, B>((String k, Map<String, dynamic> v) =>
-            MapEntry<String, B>(k, B.fromJson(v))),
+        (map) => map.map((k, v) => MapEntry(k as String, B.fromJson(v as Map))),
       ),
-      mapC: Trix.optionalFunc(
+      mapC: Trix.optionalMap(
         json,
         'mapC',
-        (map) => map.map<String, C>(
-            (String k, Map<String, dynamic> v) => MapEntry(k, C.fromJson(v))),
+        (map) => map.map((k, v) => MapEntry(k as String, C.fromJson(v as Map))),
       ),
     );
   }
@@ -58,17 +54,12 @@ class B {
 
   B({this.name, this.c, this.listC});
 
-  factory B.fromJson(Map<String, dynamic> json) {
+  factory B.fromJson(Map json) {
     return B(
-      name: Trix.required(json, 'name'),
-      c: Trix.optionalFunc(
-          json, 'c', (Map<String, dynamic> c) => C.fromJson(c)),
-      listC: Trix.optionalFunc(
-          json,
-          'listC',
-          (list) =>
-              list.map<C>((Map<String, dynamic> c) => C.fromJson(c)).toList()),
-    );
+        name: Trix.required(json, 'name'),
+        c: Trix.optionalMap(json, 'c', (c) => C.fromJson(c)),
+        listC: Trix.optionalList(
+            json, 'listC', (list) => list.map((c) => C.fromJson(c)).toList()));
   }
 }
 
@@ -77,7 +68,7 @@ class C {
 
   C({this.name});
 
-  factory C.fromJson(Map<String, dynamic> json) {
+  factory C.fromJson(Map json) {
     return C(
       name: Trix.required(json, 'name'),
     );

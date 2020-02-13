@@ -61,7 +61,7 @@ void main() {
         throwsA(
           predicate((e) =>
               e is TrixException &&
-              e.message == 'Field requiredInt is required'),
+              e.message == 'Field (requiredInt) is required'),
         ),
       );
     });
@@ -75,7 +75,7 @@ void main() {
         throwsA(
           predicate((e) =>
               e is TrixException &&
-              e.message == 'Field requiredString is required'),
+              e.message == 'Field (requiredString) is required'),
         ),
       );
     });
