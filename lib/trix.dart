@@ -42,19 +42,27 @@ class Trix {
     return value;
   }
 
-  static T optional<T>(Map map, String key) {
-    T value = _getField(map, key);
+  static T? optional<T>(Map map, String key) {
+    T? value = _getField(map, key);
     if (value == null) {
       return null;
     }
     return value;
   }
 
-  static T optionalMap<T>(Map map, String key, T Function(Map) func) {
-    return func(_getField(map, key));
+  static T? optionalMap<T>(Map map, String key, T Function(Map) func) {
+    Map? value = _getField(map, key);
+    if (value == null) {
+      return null;
+    }
+    return func(value);
   }
 
-  static T optionalList<T>(Map map, String key, T Function(List<Map>) func) {
-    return func(_getField(map, key));
+  static T? optionalList<T>(Map map, String key, T Function(List<Map>) func) {
+    List<Map>? value = _getField(map, key);
+    if (value == null) {
+      return null;
+    }
+    return func(value);
   }
 }

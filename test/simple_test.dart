@@ -4,15 +4,16 @@ import 'package:trix/trix_exception.dart';
 
 class Simple {
   final int requiredInt;
-  final int optionalInt;
+  final int? optionalInt;
   final String requiredString;
-  final String optionalString;
+  final String? optionalString;
 
-  Simple(
-      {this.requiredInt,
-      this.optionalInt,
-      this.requiredString,
-      this.optionalString});
+  Simple({
+    required this.requiredInt,
+    this.optionalInt,
+    required this.requiredString,
+    this.optionalString,
+  });
 
   factory Simple.fromJson(Map<String, dynamic> json) {
     return Simple(

@@ -3,7 +3,7 @@ import 'package:trix/trix.dart';
 import 'package:trix/trix_exception.dart';
 
 class Test {
-  final String hello;
+  final String? hello;
 
   Test({this.hello});
 
@@ -72,12 +72,12 @@ void main() {
 
       test('throws if function result is null', () {
         expect(
-          () => Trix.requiredMap<Test>(map, 'test', (json) => null),
+          () => Trix.requiredMap<Test?>(map, 'test', (json) => null),
           throwsA(
             predicate((e) =>
                 e is TrixException &&
                 e.toString() ==
-                    'Failed to build (Test) from required field (test)'),
+                    'Failed to build (Test?) from required field (test)'),
           ),
         );
       });
@@ -102,12 +102,12 @@ void main() {
 
       test('throws if function result is null', () {
         expect(
-          () => Trix.requiredList<List<Test>>(map, 'testList', (list) => null),
+          () => Trix.requiredList<List<Test>?>(map, 'testList', (list) => null),
           throwsA(
             predicate((e) =>
                 e is TrixException &&
                 e.toString() ==
-                    'Failed to build (List<Test>) from required field (testList)'),
+                    'Failed to build (List<Test>?) from required field (testList)'),
           ),
         );
       });
@@ -139,7 +139,7 @@ void main() {
             predicate((e) =>
                 e is TrixException &&
                 e.toString() ==
-                    'Field id is not expected type. Found (int) expected (String)'),
+                    'Field id is not expected type. Found (int) expected (String?)'),
           ),
         );
       });
@@ -155,35 +155,35 @@ void main() {
 
     group('optionalMap', () {
       test('null function result', () {
-        expect(Trix.optionalMap<Test>(map, 'test', (json) => null), null);
+        expect(Trix.optionalMap<Test?>(map, 'test', (json) => null), null);
       });
 
       test('field missing', () {
-        expect(Trix.optionalMap<Test>(map, 'bogus', (json) => null), null);
+        expect(Trix.optionalMap<Test?>(map, 'bogus', (json) => null), null);
       });
 
       test('valid value with func', () {
         final value =
             Trix.optionalMap(map, 'test', (json) => Test.fromJson(json));
-        expect(value.hello, 'world');
+        expect(value?.hello, 'world');
       });
     });
 
     group('optionalList', () {
       test('null function result', () {
-        expect(Trix.optionalList<List<Test>>(map, 'testList', (list) => null),
+        expect(Trix.optionalList<List<Test>?>(map, 'testList', (list) => null),
             null);
       });
 
       test('field missing', () {
         expect(
-            Trix.optionalList<List<Test>>(map, 'bogus', (list) => null), null);
+            Trix.optionalList<List<Test>?>(map, 'bogus', (list) => null), null);
       });
 
       test('valid value with func', () {
         final testList = Trix.optionalList(
             map, 'testList', (list) => list.map((l) => Test.fromJson(l)));
-        expect(testList.first.hello, 'world');
+        expect(testList?.first.hello, 'world');
       });
     });
   });
